@@ -52,6 +52,7 @@
   --heading-line-height: 1.2;
 
   /* Font sizes */
+  --font-size-sm: .875rem;   /* = 14px */
   --font-size-base: 1rem;   /* = 16px */
   --font-size-md: 1.125rem; /* = 18px */
   --font-size-lg: 1.375rem; /* = 24px */
@@ -78,7 +79,7 @@
   --layout-max-width: 90rem;  /* = 1440px; */
 
   /* Spacing */
-  --space-xxs: 0.25rem;       /* = 4px */
+  --space-xxs: 0.312rem;       /* = 4px */
   --space-xs: 0.5rem;         /* = 8px */
   --space-sm: 0.625rem;       /* = 10px */
   --space-md: 1rem;           /* = 16px */
@@ -93,7 +94,9 @@
   --radius-full: 100vmax;
 
   /* Box shadow */
-  --shadow-default: 0px 3px 15px 0px rgba(0, 0, 0, 0.1);
+  --shadow-size: 0px 3px 15px 0px;
+  --shadow-color: var(--shadow-color, rgba(0, 0, 0, 0.1))
+  --shadow: var(--shadow-size) var(--shadow-color);
 
   /* Z-index */
   --z-index-a11y: 10000;
@@ -140,6 +143,11 @@ body {
 /* reset font sizes for all elements */
 :where(input, button, textarea, select) {
   font: inherit;
+}
+
+/* reset bold element */
+:where(b, strong) {
+  font-weight: var(--font-weight-bold);
 }
 
 /* A11y recommended reduced motion */
@@ -226,6 +234,19 @@ a[class] {
   font: var(--type-body);
 }
 
+/* 1.5 Icones */
+/** 
+ * Icones 
+ * --------------------------------------------------------------------------------*/
+ [class*="fa-"] {
+  color: var(--icon-color, var(--clr-brand-900));
+  line-height: var(--body-line-height);
+}
+
+[class*="fa-"]:is(.fa-neutral) {
+  --icon-color: var(--clr-neutral-300);
+}
+
 /* 1.6 Buttons 
   * HTML element used to create a pill button with an icon and text inside.
   * Props:
@@ -294,7 +315,7 @@ a[class] {
 }
 
 /**
- * MOLECULES
+ * 4. MOLECULES
  * combination of atoms to form simple but more complete components. 
  * An example can be a search bar, formed by an input, a label and a search button.
  * - Cards
@@ -302,6 +323,146 @@ a[class] {
  * - Grids
  * - Searchbar
  * ================================================================================ */
+
+ /* 4.1 Card
+  * 
+  * Attrs:
+  * - data-variant: stacked (default) | unstacked | unstacked-reverse
+  *
+  * Props:
+  * --card-image-ratio        |   default: 260 / 120
+  * --card-background-color   |   default: --clr-neutral-100
+  *
+  * Exemple Usage:
+  * ```HTML
+  * <article class="card" data-variant="unstacked">
+  *   <figure class="card-cover">
+  *     <img class="card-cover__image" src="images/activites/florian-wehde.jpg" alt="">
+  *   </figure>
+  *   <div class="card-content">
+  *     <h3 class="card-content__title">Florian Wehde</h3>
+  *     <p class="card-content__description">Auberge La Canebière <strong>25€</strong></p>
+  *     ...
+  *     <a href="#" class="card-link">Lire la suite</a>
+  *   </div>
+  * </article>
+  * ```
+  * -----------------------------------------------------------------------------  */
+  .card {
+    --shadow-color: rgb(0 0 0 / 0.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--clr-neutral-100);
+    border-radius: var(--radius-default);
+    background-color: var(--card-background-color, var(--clr-neutral-100));
+    box-shadow: var(--shadow-size) var(--shadow-color);
+    transition: box-shadow var(--transition-default);
+  }
+
+  .card:hover {
+    --shadow-color: rgb(0 101 252 / 0.35);
+    cursor: pointer;
+  }
+  
+  /* Card cover */
+  .card-cover {
+    padding: var(--space-xxs);
+    aspect-ratio: var(--card-image-ratio, 260 / 120);
+  }
+
+  .card-cover__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--card-image-radius, 
+      calc(var(--radius-default) - 4px) calc(var(--radius-default) - 4px) 0 0
+    );
+  }
+
+  /* Card content */
+  .card-content {
+    display: flex;
+    gap: var(--space-xs);
+    flex: 1;
+    flex-direction: column;
+    padding: var(--card-content-padding, var(--space-xs) var(--space-md));
+  }
+
+  .card-content__description {
+    font-size: var(--font-size-sm);
+  }
+
+  .card-link {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    text-indent: -100%;
+    pointer-events: none;
+  }
+  
+  /* Card variants: unstacked  */
+  .card[data-variant="unstacked"] {
+    flex-direction: row;
+  }
+
+  .card[data-variant="unstacked"] .card-cover {
+    --card-image-radius: calc(var(--radius-default) - 4px) 0 0 calc(var(--radius-default) - 4px);
+    aspect-ratio: var(--card-image-ratio, 124 / 144);
+    flex: 0 0 33%;
+  }
+  
+  .card[data-variant*="unstacked"] .card-content {
+    padding-block-start: var(--space-md);
+  }
+
+  /* Card variants: unstacked-reverse  */
+  .card[data-variant="unstacked-reverse"] {
+    flex-direction: row-reverse;
+  }
+
+  .card[data-variant="unstacked-reverse"] .card-cover {
+    --card-image-radius: 0 calc(var(--radius-default) - 4px) calc(var(--radius-default) - 4px) 0;
+    aspect-ratio: 124 / 144;
+    flex: 0 0 33%;
+  }
+
+ /* Stars rating
+  * 
+  * Attrs:
+  * - data-label<bool> | default: false (show note label)
+  *
+  * Exemple Usage:
+  * ```HTML
+  * <div class="rating-stars" data-label="true">
+  *   <i class="rating-stars__icon fa-xs fa-solid fa-star" aria-hidden="true"></i>
+  *   <i class="rating-stars__icon fa-xs fa-solid fa-star" aria-hidden="true"></i>
+  *   <i class="rating-stars__icon fa-xs fa-solid fa-star" aria-hidden="true"></i>
+  *   <i class="rating-stars__icon fa-xs fa-solid fa-star" aria-hidden="true"></i>
+  *   <i class="rating-stars__icon fa-xs fa-solid fa-star fa-neutral" aria-hidden="true"></i>
+  *   <span class="rating-stars__count" aria-label="Note de">4 sur 5</span>
+  * </div>
+  * ```
+  * -----------------------------------------------------------------------------  */ 
+.rating-stars {
+  margin-top: auto;
+  display: flex;
+  gap: var(--space-xxs);
+  align-items: center;
+  line-height: 1;
+}
+
+.rating-stars__count {
+  margin-left: var(--space-xs);
+  /* Hide stars rating count text by default */
+  text-indent: -100%;
+  overflow: hidden;
+}
+
+.rating-stars[data-show-label="true"] .rating-stars__count {
+  /* Show stars rating count text */
+  text-indent: 0;
+}
 
 /**
  * ORGANISMS
@@ -320,7 +481,7 @@ a[class] {
  * - Cards grid
  * ================================================================================ */
 body {
-  width: min(100vw, var(--layout-max-width));
+  width: min(90vw, var(--layout-max-width));
   margin-inline: auto;
 }
 
