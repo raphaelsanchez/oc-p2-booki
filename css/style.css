@@ -11,7 +11,14 @@
  */
 
 /**
- * ROOT PROPERTIES
+ * SOMMAIRE
+ * 1. ROOT PROPERTIES
+ * 2. SOFT RESET
+ * 3. ATOMS 
+ * ================================================================================ */
+
+/**
+ * 1. ROOT PROPERTIES
  * ================================================================================ */
 :root {
   /* Colors Brand */
@@ -45,36 +52,44 @@
   --heading-line-height: 1.2;
 
   /* Font sizes */
-  --font-size-base: 1rem;
-  --font-size-md: 1.125rem;
-  --font-size-lg: 1.375rem;
+  --font-size-base: 1rem;   /* = 16px */
+  --font-size-md: 1.125rem; /* = 18px */
+  --font-size-lg: 1.375rem; /* = 24px */
+
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
 
   /* Types */
-  --type-h1: 700 var(--font-size-lg) / var(--heading-line-height)
-    var(--font-heading);
-  --type-h2: 700 var(--font-size-md) / var(--heading-line-height)
-    var(--font-heading);
-  --type-h3: 700 var(--font-size-base) / var(--heading-line-height)
-    var(--font-heading);
-  --type-body: 400 var(--font-size-base) / var(--body-line-height)
-    var(--font-body);
+  --type-h1: var(--font-weight-bold) var(--font-size-lg) /
+    var(--heading-line-height) var(--font-heading);
+  --type-h2: var(--font-weight-bold) var(--font-size-md) /
+    var(--heading-line-height) var(--font-heading);
+  --type-h3: var(--font-weight-bold) var(--font-size-base) /
+    var(--heading-line-height) var(--font-heading);
+  --type-body: var(--font-weight-normal) var(--font-size-base) /
+    var(--body-line-height) var(--font-body);
+  --type-button: var(--font-weight-bold) var(--font-size-base) /
+    var(--body-line-height) var(--font-body);
 }
 
 :root {
   /* Container */
-  --layout-max-width: 1440px;
+  --layout-max-width: 90rem;  /* = 1440px; */
 
   /* Spacing */
-  --space-xxs: 0.25rem;
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-xxl: 3rem;
+  --space-xxs: 0.25rem;       /* = 4px */
+  --space-xs: 0.5rem;         /* = 8px */
+  --space-sm: 0.625rem;       /* = 10px */
+  --space-md: 1rem;           /* = 16px */
+  --space-lg: 1.25rem;        /* = 20px */
+  --space-xl: 1.875rem;       /* = 30px */
+  --space-xxl: 2.187rem;      /* = 35px */
+  --space-xxxl: 3.125rem;     /* = 50px */
 
   /* Border radius */
   --radius-default: 1.25rem;
+  --radius-md: 1rem;
   --radius-full: 100vmax;
 
   /* Box shadow */
@@ -83,9 +98,12 @@
   /* Z-index */
   --z-index-a11y: 10000;
   --z-index-back: -1;
+
+  /* animations */
+  --transition-default: 150ms ease-in-out;
 }
 /**
- * SOFT RESET
+ * 2. SOFT RESET
  * ================================================================================ */
 /* makes sizing simpler */
 *,
@@ -140,20 +158,22 @@ body {
 }
 
 /**
- * ATOMS
+ * 3. ATOMS 
  * level with the most simple components of a page, such as html tags, fonts, etc.
  *
+ * - Headings
  * - Text
  * - Links
  * - Buttons
- * - Chips
  * - Forms
+ * - Buttons
+ * - Pills
  * ================================================================================ */
 html {
   scroll-behavior: smooth;
 }
 
-/* Texts */
+/* 1.1. Texts */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -161,7 +181,25 @@ body {
   color: var(--body-text-color);
 }
 
-/* Headings */
+/* Paragraph */
+p {
+  font: var(--type-body);
+}
+
+p + p {
+  margin-top: var(--space-md);
+}
+
+/* hr */
+hr {
+  border: 0;
+  height: 2px;
+  margin: var(--space-lg) 0;
+  background-color: currentColor;
+  opacity: 0.15;
+}
+
+/* 1.2 Headings */
 h1 {
   font: var(--type-h1);
 }
@@ -174,45 +212,101 @@ h3 {
   font: var(--type-h3);
 }
 
-/* Paragraphs */
-p {
-  font: var(--type-body);
-}
-
-p + p {
-  margin-top: var(--space-md);
-}
-
-/* Links */
+/* 1.4 Links */
 a {
   color: inherit;
 }
 
-/* Buttons */
-:where(button, .button) {
+a[class] {
+  text-decoration: none;
 }
 
-/* Pills */
-.pill {
-}
-
-/* Inputs */
+/* 1.4 Inputs */
 :where(input, textarea) {
   font: var(--type-body);
 }
 
+/* 1.6 Buttons 
+  * HTML element used to create a pill button with an icon and text inside.
+  * Props:
+  * - --button-padding                | default: var(--space-md)
+  * - --button-color                  | default: var(--clr-brand-900)
+  * - --button-color-forground        | default: var(--clr-brand-100)
+  * - --button-hover-color            | default: var(--clr-brand-100)
+  * - --button-hover-color-forground  | default: var(--clr-brand-100)
+  * - --button-border-color           | default: var(--clr-neutral-300)
+  *
+  * Exemple Usage:
+  * ```HTML
+  * <button>Économique</button>
+  * ```
+  * -----------------------------------------------------------------------------  */
+:where(button, .button) {
+  display: inline-flex;
+  gap: var(--pill-gap, var(--space-sm));
+  align-items: center;
+  padding: var(--button-padding, var(--space-md));
+  border: 2px solid var(--button-border-color, var(--clr-brand-900));
+  border-radius: var(--radius-md);
+  background-color: var(--button-color, var(--clr-brand-900));
+  font: var(--type-button);
+  color: var(--button-color-forground, var(--clr-brand-100));
+  cursor: pointer;
+}
+
+/* TODO: ask designers how should this a hover state be? */
+:where(button, .button):where(:hover, :focus-visible) {
+  background-color: var(--button-hover-color, var(--clr-brand-900));
+}
+
+/* 1.7 Pills 
+  * HTML element used to create a pill button with an icon and text inside.
+  * Props:
+  * - --pill-border-color           | default: var(--clr-neutral-300)
+  * - --pill-padding                | default: var(--space-md)
+  * - --pill-gap                    | default: var(--space-sm) - Space between icon and text
+  * - --pill-hover-background-color | default: var(--clr-brand-100)
+  *
+  * Exemple Usage:
+  * ```HTML
+  * <a href="#" class="pill">
+  *   <i class="fa-solid fa-dog"></i>
+  *   <span>Économique</span>
+  * </a>
+  * ```
+  * -----------------------------------------------------------------------------  */
+.pill {
+  display: inline-flex;
+  gap: var(--pill-gap, var(--space-sm));
+  align-items: center;
+  padding: var(--pill-padding, var(--space-md));
+  border: 2px solid var(--pill-border-color, var(--clr-neutral-300));
+  border-radius: var(--radius-full);
+  font: var(--type-button);
+}
+
+.pill :where(i, svg) {
+  color: var(--pill-icon-color, var(--clr-brand-900));
+}
+
+.pill:where(:hover, :focus-visible) {
+  background-color: var(--pill-hover-background-color, var(--clr-brand-100));
+}
+
 /**
  * MOLECULES
- * combination of atoms to form simple but more complete components. An example can be a search bar, formed by an input, a label and a search button.
- * - Searchbar
- * - Filters
+ * combination of atoms to form simple but more complete components. 
+ * An example can be a search bar, formed by an input, a label and a search button.
  * - Cards
+ * - Filters
  * - Grids
+ * - Searchbar
  * ================================================================================ */
 
 /**
  * ORGANISMS
- * ensembles formed by several molecules, corresponding to each main section of an interface, such as a menu bar, or a sidebar.
+ * ensembles formed by several molecules, corresponding to each main section 
+ * of an interface, such as a menu bar, or a sidebar.
  * - Header
  * - Main
  * - Footer
@@ -220,7 +314,8 @@ a {
 
 /**
  * TEMPLATES
- * groups of organisms correctly placed to create a page, used to visualize the disposition of each object in the page.
+ * groups of organisms correctly placed to create a page, used to visualize 
+ * the disposition of each object in the page.
  * - Layout
  * - Cards grid
  * ================================================================================ */
