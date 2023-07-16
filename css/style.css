@@ -454,8 +454,8 @@ label + * {
   * ```HTML
   * <div class="input-group">
   *   <span class="input-group__prepend"><i class="fa-solid fa-location-dot"></i></span>
-  *   <input class="input-group__field" type="text" id="search" name="search" placeholder="Rechercher une localité">
-  *   <button class="input-group__button">Rechercher</button>
+  *   <input type="text" id="search" name="search" placeholder="Rechercher une localité">
+  *   <button type="submit">Rechercher</button>
   * </div>
   * ```
   * -----------------------------------------------------------------------------  */ 
@@ -493,16 +493,12 @@ label + * {
   }
 
   .input-group button,
-  .input-group:has(.input-group__prepend) input {
+  .input-group__prepend + input {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
 
-  .input-group:has(button) input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
+/* TODO: check browser compatibility */
   .input-group:has(input:focus-visible),
   .input-group button:focus-visible {
     outline: 2px solid var(--clr-brand-900);
