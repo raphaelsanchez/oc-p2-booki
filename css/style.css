@@ -427,6 +427,48 @@ a[class] {
     flex: 0 0 33%;
   }
 
+  /* 4.1 Nav
+  * 
+  * Attrs:
+  * --nav-gap: (default: 0)
+  * --nav-direction: (default: row)
+  * --nav-align: (default: center)
+  * --nav-justify: (default: flex-start)
+  * --nav-link-padding: (default: .5rem 1rem)
+  * --nav-link-color: (default: inherit)
+  * --nav-link-color-hover: (default: --clr-brand-900)
+  *
+  * Exemple Usage:
+  * ```HTML
+  * <ul class="nav">
+  *   <li class="nav__item">
+  *     <a href="#" class="nav__link">Item 1</a>
+  *   </li>
+  *   ...
+  * </ul>
+  * ```
+  * -----------------------------------------------------------------------------  */
+  .nav {
+    display: flex;
+    gap: var(--nav-gap, 0);
+    flex-direction: var(--nav-direction, row);
+    align-items: var(--nav-align, center);
+    justify-content: var(--nav-justify, flex-start);
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  .nav__link {
+    display: inline-flex;
+    padding: var(--nav-link-padding,  var(--space-xs) var(--space-md));
+    color: var(--nav-link-color, inherit);
+  }
+
+  .nav__link:hover {
+    color: var(--nav-link-color-hover, var(--clr-brand-900));
+  }
+
+
  /* Stars rating
   * 
   * Attrs:
