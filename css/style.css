@@ -233,13 +233,15 @@ a[class] {
   text-decoration: none;
 }
 
-/* 1.4 Forms */
-label {
-  font: var(--type-label)
+:where(:focus-visible) {
+  outline: 2px solid var(--clr-brand-900);
+  outline-offset: 2px;  
 }
 
-label + * {
-  margin-top: var(--space-xxs);
+/* 1.4 Forms */
+label {
+  font: var(--type-label);
+  margin-bottom: var(--space-xxs);
 }
 
 :where(input, textarea) {
@@ -249,7 +251,6 @@ label + * {
   font: var(--type-input);
   border: 2px solid var(--clr-neutral-200);
   border-radius: var(--radius-md);
-  outline: none;
 }
 
 /* 1.5 Icones */
@@ -448,6 +449,7 @@ label + * {
 /** Input group
   * 
   * Attrs:
+  * --input-group-padding | default: var(--space-md) pass as prop from parent
   * 
   *
   * Exemple Usage:
@@ -473,7 +475,8 @@ label + * {
   .input-group__prepend {
     display: flex;
     align-items: center;
-    padding-inline: var(--input-group-padding, var(--space-lg));
+    padding-block: var(--input-group-padding-block, var(--space-md));
+    padding-inline: var(--input-group-padding-block, var(--space-md));
     font-size: var(--font-size-lg);
     background-color: var(--clr-neutral-200);
     border-top-left-radius: var(--radius-md);
@@ -486,29 +489,80 @@ label + * {
 
   .input-group input {
     flex: 1;
+    outline: none;
+    padding-block: var(--input-group-padding-block, var(--space-md));
+    padding-inline: var(--input-group-padding-inline, var(--space-md));
   }
 
   .input-group input + button {
-    margin-left: calc(var(--radius-md) * -1);
+    margin-left: -1px;
   }
 
-  .input-group button,
-  .input-group__prepend + input {
+  .input-group > :not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
 
-/* TODO: check browser compatibility */
-  .input-group:has(input:focus-visible),
-  .input-group button:focus-visible {
+  .input-group > :not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .input-group:focus-within {
+    /* border-radius: var(--radius-md); */
     outline: 2px solid var(--clr-brand-900);
     outline-offset: 2px;
   }
 
-  .input-group button:focus-visible {
-    border-radius: var(--radius-md);
+/** Search form
+  * 
+  * Attrs: 
+  * pass value to children
+  * --input-group-padding-inline
+  * --input-group-padding-block
+  * 
+  *
+  * Exemple Usage:
+  * ```HTML
+  * <form action="" class="search-form">
+  *   <label class="sr-only" for="search">Rechercher une localité</label>
+  *   <div class="input-group">
+  *     <span class="input-group__prepend"><i class="fa-solid fa-location-dot"></i></span>
+  *     <input class="input-group__field" type="text" id="search" name="search" placeholder="Rechercher une localité">
+  *   </div>
+  *   <button class="input-group__button">Rechercher</button>
+  * </form>
+  * ```
+  * -----------------------------------------------------------------------------  */ 
+  .search-form {
+    --input-group-padding-inline: var(--space-lg);
+    --input-group-padding-block: var(--space-lg);
+    display: flex;
+    align-items: stretch;
+    position: relative;
   }
 
+  .search-form input {
+    outline: none;
+  }
+
+  .search-form .input-group {
+    flex: 1;
+  }
+
+  .search-form button {
+    position: absolute;
+    right: 0;
+    inset-block: 0;
+    margin-left: calc(var(--radius-md) * -1);
+    padding-block: var(--input-group-padding-block, var(--space-md));
+    padding-inline: var(--input-group-padding-inline, var(--space-md));
+  } 
+
+  .search-form button:not(:focus-visible) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 
   /* 4.1 Nav
   * 
@@ -550,7 +604,6 @@ label + * {
   .nav__link:hover {
     color: var(--nav-link-color-hover, var(--clr-brand-900));
   }
-
 
  /* Stars rating
   * 
