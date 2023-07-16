@@ -72,6 +72,10 @@
     var(--body-line-height) var(--font-body);
   --type-button: var(--font-weight-bold) var(--font-size-base) /
     var(--body-line-height) var(--font-body);
+  --type-input: var(--font-weight-bold) var(--font-size-base) /
+    var(--body-line-height) var(--font-body);
+  --type-label: var(--font-weight-bold) var(--font-size-base) /
+    var(--body-line-height) var(--font-body);
 }
 
 :root {
@@ -229,9 +233,23 @@ a[class] {
   text-decoration: none;
 }
 
-/* 1.4 Inputs */
+/* 1.4 Forms */
+label {
+  font: var(--type-label)
+}
+
+label + * {
+  margin-top: var(--space-xxs);
+}
+
 :where(input, textarea) {
-  font: var(--type-body);
+  display: block;
+  width: 100%;
+  padding: var(--space-md);
+  font: var(--type-input);
+  border: 2px solid var(--clr-neutral-200);
+  border-radius: var(--radius-md);
+  outline: none;
 }
 
 /* 1.5 Icones */
@@ -426,6 +444,75 @@ a[class] {
     aspect-ratio: 124 / 144;
     flex: 0 0 33%;
   }
+
+/** Input group
+  * 
+  * Attrs:
+  * 
+  *
+  * Exemple Usage:
+  * ```HTML
+  * <div class="input-group">
+  *   <span class="input-group__prepend"><i class="fa-solid fa-location-dot"></i></span>
+  *   <input class="input-group__field" type="text" id="search" name="search" placeholder="Rechercher une localité">
+  *   <button class="input-group__button">Rechercher</button>
+  * </div>
+  * ```
+  * -----------------------------------------------------------------------------  */ 
+  .input-group {
+    display: flex;
+    align-items: stretch;
+    border-radius: var(--radius-md);
+  }
+
+  .input-group > *:not(input) {
+    flex: 0 0 auto;
+    outline: none;
+  }
+
+  .input-group__prepend {
+    display: flex;
+    align-items: center;
+    padding-inline: var(--input-group-padding, var(--space-lg));
+    font-size: var(--font-size-lg);
+    background-color: var(--clr-neutral-200);
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+  }
+
+  .input-group__prepend > * {
+    color: var(--clr-neutral-900);
+  }
+
+  .input-group input {
+    flex: 1;
+  }
+
+  .input-group input + button {
+    margin-left: calc(var(--radius-md) * -1);
+  }
+
+  .input-group button,
+  .input-group:has(.input-group__prepend) input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .input-group:has(button) input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .input-group:has(input:focus-visible),
+  .input-group button:focus-visible {
+    outline: 2px solid var(--clr-brand-900);
+    outline-offset: 2px;
+  }
+
+  .input-group button:focus-visible {
+    border-radius: var(--radius-md);
+  }
+
 
   /* 4.1 Nav
   * 
