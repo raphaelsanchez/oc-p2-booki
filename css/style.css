@@ -106,7 +106,7 @@
   --transition-default: 150ms ease-in-out;
 
   /* Icon */
-  --icon-color: var(--clr-neutral-900);
+  --icon-color: currentColor;
 }
 /**
  * 2. SOFT RESET
@@ -259,7 +259,7 @@ label {
  * Icones 
  * --------------------------------------------------------------------------------*/
 [class*="fa-"] {
-  color: var(--icon-color, var(--clr-brand-900));
+  color: var(--icon-color, currentColor);
 }
 
 [class*="fa-"]:is(.fa-neutral) {
@@ -519,6 +519,25 @@ label {
   /* border-radius: var(--radius-md); */
   outline: 2px solid var(--clr-brand-900);
   outline-offset: 2px;
+}
+
+.input-group__button i {
+  display: none;
+}
+
+@media (width < 48rem) {
+  .input-group__button i {
+    display: block;
+  }
+  .search-form button {
+    display: grid;
+    place-content: center;
+    border-radius: var(--radius-md) !important;
+    aspect-ratio: 1;
+  }
+  .input-group__button span {
+    display: none;
+  }
 }
 
 /** Search form
@@ -867,6 +886,17 @@ section {
   gap: var(--section-gap, var(--space-xl));
   background-color: var(--section-background, var(--clr-neutral-100));
   border-radius: var(--section-radius, var(--radius-default));
+}
+
+.section-heading {
+  --icon-color: var(--clr-brand-900);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-heading i {
+  font-size: 1.15rem;
 }
 
 .search-and-filter {
