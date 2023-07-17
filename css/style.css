@@ -601,10 +601,19 @@ label {
   }
 
   .nav__link {
-    display: block;
+    display: flex;
+    justify-content: center;
     padding: var(--nav-link-padding,  var(--space-xs) var(--space-md));
     color: var(--nav-link-color, inherit);
-    text-align: center;
+  }
+
+  .nav__link::before {
+    content: "";
+    position: absolute;
+    inset: var(--nav-link-indicator-position,  0 0 auto);
+    width: 100%;
+    height: var(--nav-link-indicator-size, 2px);
+    background-color: var(--nav-link-indicator-color, transparent);
   }
 
   .nav__link:hover {
@@ -659,8 +668,9 @@ label {
 
 /* Header
  * 
- * Attrs:
- * - data-label<bool> | default: false (show note label)
+ * Props:
+ * --header-direction: column | row (default)
+ * --header-align: flex-start (default) | flex-end | center
  *
  * -----------------------------------------------------------------------------  */ 
  .header {
@@ -682,18 +692,8 @@ label {
   .header-nav .nav__link {
     padding-inline: inherit;
     padding-block: var(--space-md);
-    border: var(--nav-link-border, solid 2px 0 0 0);
-    border-color: var(--nav-link-border-color, transparent);
   }
 
-  .header-nav .nav__link::before {
-    content: "";
-    position: absolute;
-    inset: var(--nav-link-indicator-position,  0 0 auto);
-    width: 100%;
-    height: var(--nav-link-indicator-size, 2px);
-    background-color: var(--nav-link-indicator-color, transparent);
-  }
 
   .header-nav .nav__link:hover {
     --nav-link-indicator-color: var(--clr-brand-900);
@@ -709,6 +709,39 @@ label {
       --nav-link-indicator-position: auto 0 0;
     }
   }
+
+/* Footer
+ * 
+ * Props:
+ * --footer-background-color: (default: var(--clr-neutral-100))
+ * --footer-nav-columns: (default: repeat(3, 1fr))
+ *
+ * -----------------------------------------------------------------------------  */ 
+ .footer {
+  padding: var(--footer-nav-padding, var(--space-xl));
+  background-color: var(--footer-background-color, var(--clr-neutral-200));
+ }
+
+ .footer-nav {
+   --nav-direction: column;
+   --nav-align: flex-start;
+   --nav-link-padding: 0;
+   --nav-gap: var(--space-md);
+   display: grid;
+   grid-template-columns: var(--footer-nav-columns, repeat(3, 1fr));
+   gap: var(--space-xxl);
+ }
+
+ .footer-nav h2 {
+   margin-bottom: var(--space-md);
+ }
+
+ /* Device width < 768px */
+ @media (width < 48rem) {
+   .footer-nav {
+    --footer-nav-columns: 1fr;
+   }
+ }
 
 /**
  * TEMPLATES
