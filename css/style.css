@@ -480,7 +480,7 @@ label {
 }
 
 .input-group__prepend {
-  display: flex;
+  display: grid;
   place-content: center;
   padding-block: var(--input-group-padding-block, var(--space-md));
   padding-inline: calc(var(--input-group-padding-block, var(--space-md)) * 1.5);
