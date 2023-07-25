@@ -11,15 +11,39 @@
  */
 
 /**
- * SOMMAIRE
+ * SUMMARY
  * 1. ROOT PROPERTIES
+ *    1.1 Colors
+ *    1.2 Fonts
+ *    1.3 Layout
  * 2. SOFT RESET
  * 3. ATOMS 
+ *    3.1. Texts 
+ *    3.2. Headings
+ *    3.3. Links
+ *    3.4. Forms
+ *    3.5. Icons
+ *    3.6. Buttons
+ *    3.7 Pills 
+ * 4. MOLECULES
+ *    4.1. Card
+ *    4.2. Input group
+ *    4.3. Search form
+ *    4.4. Notices
+ *    4.5. Nav
+ *    4.6. Rating stars
+ * 5. ORGANISMS
+ *    5.1. Header
+ *    5.2. Footer
+ *    5.3. Section
+ *    5.4. Cards
+ * 6. TEMPLATES
  * ================================================================================ */
 
 /**
  * 1. ROOT PROPERTIES
  * ================================================================================ */
+/* 1.1 Colors */
 :root {
   /* Colors Brand */
   --clr-brand-900: #0065fc;
@@ -36,6 +60,7 @@
   --body-text-color: var(--clr-neutral-000);
 }
 
+/* 1.2 Fonts */
 :root {
   /* Fonts */
   --font-fallback: BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
@@ -74,6 +99,7 @@
     var(--body-line-height) var(--font-body);
 }
 
+/* 1.3 Layout */
 :root {
   /* Container */
   --layout-max-width: 90rem; /* = 1440px; */
@@ -108,6 +134,7 @@
   /* Icon */
   --icon-color: currentColor;
 }
+
 /**
  * 2. SOFT RESET
  * ================================================================================ */
@@ -188,7 +215,9 @@ html {
   accent-color: var(--clr-brand-900);
 }
 
-/* 1.1. Texts */
+/** 
+ * 3.1. Texts 
+ * -----------------------------------------------------------------------------  */
 body {
   font: var(--type-body);
   color: var(--body-text-color);
@@ -212,7 +241,9 @@ hr {
   opacity: 0.15;
 }
 
-/* 1.2 Headings */
+/** 
+ * 3.2. Headings
+ * -----------------------------------------------------------------------------  */
 h1 {
   font: var(--type-h1);
 }
@@ -225,7 +256,9 @@ h3 {
   font: var(--type-h3);
 }
 
-/* 1.4 Links */
+/** 
+ * 3.3 Links
+ * -----------------------------------------------------------------------------  */
 a {
   color: inherit;
 }
@@ -239,7 +272,9 @@ a[class] {
   outline-offset: 2px;
 }
 
-/* 1.4 Forms */
+/** 
+ * 3.4 Forms
+ * -----------------------------------------------------------------------------  */
 label {
   font: var(--type-label);
   margin-bottom: var(--space-xxs);
@@ -254,10 +289,9 @@ label {
   border-radius: var(--radius-md);
 }
 
-/* 1.5 Icones */
 /** 
- * Icones 
- * --------------------------------------------------------------------------------*/
+  * 3.5 Icones
+  * -----------------------------------------------------------------------------  */
 [class*="fa-"] {
   color: var(--icon-color, currentColor);
 }
@@ -266,7 +300,9 @@ label {
   --icon-color: var(--clr-neutral-300);
 }
 
-/* 1.6 Buttons 
+/** 
+  * 3.6 Buttons 
+  *
   * HTML element used to create a pill button with an icon and text inside.
   * Props:
   * - --button-padding                | default: var(--space-md)
@@ -299,7 +335,7 @@ label {
   background-color: var(--button-hover-color, var(--clr-brand-900));
 }
 
-/* 1.7 Pills 
+/** 3.7 Pills 
   * HTML element used to create a pill button with an icon and text inside.
   * Props:
   * - --pill-border-color           | default: var(--clr-neutral-300)
@@ -345,7 +381,7 @@ label {
  * - Searchbar
  * ================================================================================ */
 
-/* 4.1 Card
+/* 4.1. Card
   * 
   * Attrs:
   * - data-variant: stacked (default) | unstacked | unstacked-reverse
@@ -453,7 +489,8 @@ label {
   flex: 0 0 33%;
 }
 
-/** Input group
+/** 
+  * 4.2. Input group
   * 
   * Attrs:
   * --input-group-padding | default: var(--space-md) pass as prop from parent
@@ -533,14 +570,15 @@ label {
     display: grid;
     place-content: center;
     border-radius: var(--radius-md) !important;
-    aspect-ratio: 1;
+    aspect-ratio: 1 / 1;
   }
   .input-group__button span {
     display: none;
   }
 }
 
-/** Search form
+/** 
+  * 4.3. Search form
   * 
   * Attrs: 
   * pass value to children
@@ -625,7 +663,7 @@ label {
 }
 
 /** 
- * Notices
+ * 4.4. Notices
  *
  * @data-type : info | success | warning | danger
  * @properties : 
@@ -648,7 +686,7 @@ label {
   --notice-icon-color: var(--clr-main);
 }
 
-/* 4.1 Nav
+/* 4.5. Nav
   * 
   * Attrs:
   * --nav-gap: (default: 0)
@@ -704,7 +742,8 @@ label {
   color: var(--nav-link-color-hover, var(--clr-brand-900));
 }
 
-/* Stars rating
+/** 
+  * 4.6. Rating stars
   * 
   * Attrs:
   * - data-label<bool> | default: false (show note label)
@@ -743,7 +782,7 @@ label {
 }
 
 /**
- * ORGANISMS
+ * 5. ORGANISMS
  * ensembles formed by several molecules, corresponding to each main section 
  * of an interface, such as a menu bar, or a sidebar.
  * - Header
@@ -751,7 +790,8 @@ label {
  * - Footer
  * ================================================================================ */
 
-/* Header
+/** 
+ * 5.1. Header
  * 
  * Props:
  * --header-direction: column | row (default)
@@ -794,7 +834,8 @@ label {
   }
 }
 
-/* Footer
+/** 
+ * 5.2. Footer
  * 
  * Props:
  * --footer-background-color: (default: var(--clr-neutral-100))
@@ -827,32 +868,52 @@ label {
   }
 }
 
-/* Cards
- * 
- * Props:
- *
+/** 
+ * 5.3. Section
  * -----------------------------------------------------------------------------  */
+section {
+  padding: var(--section-padding, var(--space-xl));
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--section-gap, var(--space-xl));
+  background-color: var(--section-background, var(--clr-neutral-100));
+  border-radius: var(--section-radius, var(--radius-default));
+}
 
+.section-heading {
+  --icon-color: var(--clr-brand-900);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.section-heading i {
+  font-size: 1.15rem;
+}
+
+.section-heading__subtitle {
+  flex: 100%;
+}
+
+.section-footer__link {
+  font: var(--type-button);
+}
+
+/** 
+ * 5.4. Cards
+ * 
+ * Display groups of cards in grid format.
+ * -----------------------------------------------------------------------------  */
 .cards {
   display: grid;
   gap: var(--cards-gap, var(--space-xl));
   grid-template-columns: var(--cards-columns, repeat(3, 1fr));
 }
 
-.cards[data-columns="2"] {
-  --cards-columns: repeat(2, 1fr);
-}
-
-.cards[data-columns="3"] {
-  --cards-columns: repeat(3, 1fr);
-}
-
-.cards[data-columns="4"] {
-  --cards-columns: repeat(4, 1fr);
-}
-
 /**
- * TEMPLATES
+ * 6. TEMPLATES
  * groups of organisms correctly placed to create a page, used to visualize 
  * the disposition of each object in the page.
  * - Layout
@@ -876,27 +937,6 @@ body {
 .main {
   display: grid;
   gap: var(--space-xxl);
-}
-
-section {
-  container-type: inline-size;
-  padding: var(--section-padding, var(--space-xl));
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: var(--section-gap, var(--space-xl));
-  background-color: var(--section-background, var(--clr-neutral-100));
-  border-radius: var(--section-radius, var(--radius-default));
-}
-
-.section-heading {
-  --icon-color: var(--clr-brand-900);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.section-heading i {
-  font-size: 1.15rem;
 }
 
 .search-and-filter {
@@ -976,8 +1016,4 @@ section {
 /**
  * PAGES
  * - Home
- * ================================================================================ */
-
-/**
- * A11Y
  * ================================================================================ */
