@@ -981,6 +981,8 @@ body {
   .populars {
     --cards-columns: repeat(3, 1fr);
     --card-image-ratio: 91 / 146;
+    --cards-gap: var(--space-lg);
+    --card-content-padding: var(--space-sm);
   }
 
   .activities {
