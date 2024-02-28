@@ -6,6 +6,8 @@ Ce projet consiste à intégrer le site web Booki, une plateforme en ligne perme
 
 ## Aperçu du projet
 
+![Booki screenshot](./screenshot.png)
+
 Le but de ce projet est d'intégrer le site web Booki en utilisant les technologies suivantes :
 
 - **HTML** : pour structurer le contenu du site web.
